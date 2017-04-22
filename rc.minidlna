@@ -17,7 +17,7 @@ C_RED=$'\e[31;01m'
 C_NORMAL=$'\e[0m'
 
 SNAME='MiniDLNA server'
-NAME=minidlna
+NAME=minidlnad
 CMD="/usr/sbin/$NAME"
 PIDFILE="/var/run/$NAME.pid"
 CMD_OPTS="-f /etc/$NAME.conf -P $PIDFILE"
