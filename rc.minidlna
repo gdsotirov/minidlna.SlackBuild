@@ -19,8 +19,8 @@ C_NORMAL=$'\e[0m'
 SNAME='MiniDLNA server'
 NAME=minidlna
 CMD="/usr/sbin/$NAME"
-CMD_OPTS="-f /etc/$NAME.conf"
 PIDFILE="/var/run/$NAME.pid"
+CMD_OPTS="-f /etc/$NAME.conf -P $PIDFILE"
 
 ok() {
   echo "${C_GREEN}Done${C_NORMAL}"
