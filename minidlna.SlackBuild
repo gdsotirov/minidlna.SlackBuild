@@ -19,13 +19,13 @@
 # 
 # Visit SlackPack at http://sotirov-bg.net/slackpack/
 #
-# $Id: minidlna.SlackBuild,v 1.1 2017/04/22 10:14:14 gsotirov Exp $
+# $Id: minidlna.SlackBuild,v 1.2 2017/04/22 12:40:34 gsotirov Exp $
 #
 
 . ../../slack-package.conf
 
 NAME=minidlna
-VERSION=1.0.18
+VERSION=1.0.25
 ARCH=${ARCH:-i486}
 BUILD=${BUILD:-1}
 
@@ -52,7 +52,6 @@ mkdir -p $PKG
 # Extract and fix source
 cd $TMP
 tar -xvf $CWD/${NAME}_${VERSION}_src.tar.?z* || exit 3
-mv ${NAME} ${NAME}-${VERSION}
 cd $SRC
 fix_source
 
@@ -65,7 +64,8 @@ fi
 # Build & install
 CFLAGS="$SLKCFLAGS" \
 make -j4 || exit 6
-make PREFIX=$PKG install || exit 8
+make DESTDIR=$PKG install || exit 7
+make DESTDIR=$PKG install-conf || exit 8
 
 # Additional installation steps
 (cd $PKG/etc; mv ${NAME}.conf ${NAME}.conf.new )
