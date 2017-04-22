@@ -1,0 +1,10 @@
+ffmpeg >= 0.7.17
+flac >= 1.2.1
+gcc >= 4.4.4
+glibc-solibs >= 2.11.1
+libexif >= 0.6.19
+libid3tag >= 0.15.1b
+libjpeg >= v8a
+libogg >= 1.1.4
+libvorbis >= 1.2.3
+sqlite >= 3.6.23.1
