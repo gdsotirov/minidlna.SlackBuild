@@ -4,8 +4,9 @@ minidlna: MiniDLNA is a simple media server software, with the aim of being
 minidlna: fully compliant with DLNA/UPnP-AV clients. It is developed by a
 minidlna: NETGEAR employee for the ReadyNAS product line.
 minidlna: The minidlna daemon serves media files (music, pictures, and video)
-minidlna: to clients on your network. Clients include desktop applications and
+minidlna: to clients on your network that include desktop applications and
 minidlna: devices such as portable media players, smartphones, and televisions.
-minidlna:
+minidlna: MiniDLNA is not in any way endorsed by the Digital Living Network
+minidlna: AllianceÂ.
 minidlna:
 minidlna: Packaged by Georgi D. Sotirov <gdsotirov@dir.bg>
