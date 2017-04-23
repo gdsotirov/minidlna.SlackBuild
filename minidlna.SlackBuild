@@ -19,7 +19,7 @@
 # 
 # Visit SlackPack at http://sotirov-bg.net/slackpack/
 #
-# $Id: minidlna.SlackBuild,v 1.4.2.1 2017/04/23 13:14:59 gsotirov Exp $
+# $Id: minidlna.SlackBuild,v 1.4.2.2 2017/04/23 14:36:49 gsotirov Exp $
 #
 
 . ../../slack-package.conf
@@ -71,7 +71,9 @@ CFLAGS="$SLKCFLAGS" \
             --mandir=/usr/man \
             --docdir=/usr/doc/${NAME}-${VERSION} \
             --enable-tivo \
-            --disable-static || exit 5
+            --disable-static \
+            --with-log-path=/var/log/${NAME} \
+            --with-db-path=/var/cache/${NAME} || exit 5
 #           --enable-netgear  # not for a netgear device
 #           --enable-readynas # not for a readynas device
 
@@ -82,6 +84,7 @@ make V=1 DESTDIR=$PKG install || exit 7
 # Install configuration files nad startup/shutdown script
 install -m 755 -d $PKG/etc
 install -m 644 $SRC/${NAME}.conf $PKG/etc/${NAME}.conf.new
+sed -i "s/^#log_dir=\/var\/log$/#log_dir=\/var\/log\/${NAME}/" $PKG/etc/${NAME}.conf.new 
 install -m 755 -d $PKG/etc/rc.d
 install -m 644 $CWD/rc.${NAME} $PKG/etc/rc.d/rc.${NAME}.new
 
@@ -89,6 +92,10 @@ install -m 644 $CWD/rc.${NAME} $PKG/etc/rc.d/rc.${NAME}.new
 install -m 755 -d $PKG/usr/man/man{5,8}
 install -m 644 $SRC/minidlna.conf.5  $PKG/usr/man/man5/minidlna.conf.5
 install -m 644 $SRC/minidlnad.8      $PKG/usr/man/man8/minidlnad.8
+
+# Create log and db cache directories
+install -d -m 755 $PKG/var/log/${NAME}
+install -d -m 755 $PKG/var/cache/${NAME}
 
 # Prepare
 sbin_perms $PKG
