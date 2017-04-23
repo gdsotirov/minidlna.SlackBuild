@@ -17,10 +17,11 @@ C_RED=$'\e[31;01m'
 C_NORMAL=$'\e[0m'
 
 SNAME='MiniDLNA server'
-NAME=minidlnad
-CMD="/usr/sbin/$NAME"
-PIDFILE="/var/run/$NAME.pid"
-CMD_OPTS="-f /etc/$NAME.conf -P $PIDFILE"
+NAME=minidlna
+CMD="/usr/sbin/${NAME}d"
+CONFILE="/etc/${NAME}.conf"
+PIDFILE="/var/run/${NAME}.pid"
+CMD_OPTS="-f $CONFILE -P $PIDFILE"
 
 ok() {
   echo "${C_GREEN}Done${C_NORMAL}"
@@ -79,9 +80,38 @@ status() {
   fi
 }
 
+db_clean() {
+  # If DB dir defined explicitly in log (i.e. not commented), then use it
+  DB_DIR_CONF=$(grep -E '^db_dir=' $CONFILE | awk -F'=' '{ print $2 }')
+  # else fallback to default
+  DB_DIR=${DB_DIR_CONF:-/var/cache/$NAME}
+  WAS_RUNNING=0
+
+  if [ -e $DB_DIR -a -d $DB_DIR ]; then
+    # Stop daemon if running
+    if [ -e $PIDFILE ]; then
+      WAS_RUNNING=1
+      stop
+      sleep 3
+    fi
+
+    echo -n "Cleaning cache in ${DB_DIR}... "
+    rm -f ${DB_DIR}/files.db
+    rm -rf ${DB_DIR}art_cache
+    print_status
+
+    # And restart daemon afterwards
+    if [ $WAS_RUNNING -ne 0 ]; then
+      start
+    fi
+  else
+    echo "Error: cache dir $DB_DIR does not exist or not a direcory!"
+  fi
+}
+
 help() {
   echo "$SNAME control"
-  echo "Usage: $0 start|stop|restart|status"
+  echo "Usage: $0 start|stop|restart|status|clean"
   echo
 }
 
@@ -90,8 +120,12 @@ case "$1" in
     start ;;
   'stop')
     stop ;;
+  'restart')
+    restart ;;
   'status')
     status ;;
+  'clean')
+    db_clean ;;
   *)
     help ;;
 esac
