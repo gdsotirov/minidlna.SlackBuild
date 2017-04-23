@@ -19,7 +19,7 @@
 # 
 # Visit SlackPack at http://sotirov-bg.net/slackpack/
 #
-# $Id: minidlna.SlackBuild,v 1.4 2017/04/22 20:05:11 gsotirov Exp $
+# $Id: minidlna.SlackBuild,v 1.4.2.1 2017/04/23 13:14:59 gsotirov Exp $
 #
 
 . ../../slack-package.conf
@@ -71,9 +71,9 @@ CFLAGS="$SLKCFLAGS" \
             --mandir=/usr/man \
             --docdir=/usr/doc/${NAME}-${VERSION} \
             --enable-tivo \
-            --enable-netgear \
-            --enable-readynas \
             --disable-static || exit 5
+#           --enable-netgear  # not for a netgear device
+#           --enable-readynas # not for a readynas device
 
 # Build & install
 make V=1 -j4 || exit 6
