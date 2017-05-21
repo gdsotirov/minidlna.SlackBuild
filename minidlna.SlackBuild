@@ -19,13 +19,13 @@
 # 
 # Visit SlackPack at http://sotirov-bg.net/slackpack/
 #
-# $Id: minidlna.SlackBuild,v 1.6 2017/04/23 15:02:50 gsotirov Exp $
+# $Id: minidlna.SlackBuild,v 1.7 2017/05/21 16:26:03 gsotirov Exp $
 #
 
 . ../../slack-package.conf
 
 NAME=minidlna
-VERSION=1.1.6
+VERSION=1.2.0
 ARCH=${ARCH:-i586}
 BUILD=${BUILD:-1}
 
