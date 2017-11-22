@@ -19,7 +19,7 @@
 # 
 # Visit SlackPack at http://sotirov-bg.net/slackpack/
 #
-# $Id: minidlna.SlackBuild,v 1.8 2017/08/25 12:47:23 gsotirov Exp $
+# $Id: minidlna.SlackBuild,v 1.9 2017/11/22 08:05:44 gsotirov Exp $
 #
 
 . ../../slack-package.conf
@@ -88,6 +88,8 @@ install -m 644 $SRC/${NAME}.conf $PKG/etc/${NAME}.conf.new
 sed -i "s/^#log_dir=\/var\/log$/#log_dir=\/var\/log\/${NAME}/" $PKG/etc/${NAME}.conf.new 
 install -m 755 -d $PKG/etc/rc.d
 install -m 644 $CWD/rc.${NAME} $PKG/etc/rc.d/rc.${NAME}.new
+install -m 755 -d $PKG/etc/logrotate.d
+install -m 644 $CWD/${NAME}.logrotate $PKG/etc/logrotate.d/${NAME}.new
 
 # Install man pages
 install -m 755 -d $PKG/usr/man/man{5,8}
