@@ -24,4 +24,5 @@ preserve_perms() {
 
 preserve_perms etc/rc.d/rc.minidlna.new
 config etc/minidlna.conf.new
+config etc/logrotate.d/minidlna.new
 
